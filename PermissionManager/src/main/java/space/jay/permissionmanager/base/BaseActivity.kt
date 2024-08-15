@@ -21,9 +21,11 @@ internal abstract class BaseActivity : AppCompatActivity() {
 
     protected fun sendResult(arrayDeniedPermission: Array<String>) {
         sendBroadcast(
-            Intent(receiverId)
-                .putExtra(Constant.Extra.RESULT_IS_GRANTED, arrayDeniedPermission.isEmpty())
-                .putExtra(Constant.Extra.RESULT_DENIED_ARRAY_PERMISSION, arrayDeniedPermission)
+            Intent(receiverId).apply {
+                setPackage(applicationContext.packageName)
+                putExtra(Constant.Extra.RESULT_IS_GRANTED, arrayDeniedPermission.isEmpty())
+                putExtra(Constant.Extra.RESULT_DENIED_ARRAY_PERMISSION, arrayDeniedPermission)
+            }
         )
         finish()
     }
